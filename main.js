@@ -78,42 +78,52 @@ var starbuck = new Cat(
 );
 
 $(document).ready(function(){
+  setClickers();
   // should be replaced with your beginning/end game logic
   // while (true) {
     // $(".look").click(function() {
     //   alert( this.id.getDescription() );
     // });
-    $(".look").click(function() {
-      alert(room_directory(this.getAttribute('id')).getDescription());
-    });
 
-    $(".run").click(function() {
-      var current_room = room_directory(this.getAttribute('id'));
-      $("h1").html("Starbuck is in the " + current_room.name.toLowerCase() + "!");
-      var option_div = $(".options")[0];
-      var room_div = $(".room");
-      for (var i = 0; i < room_div.length; i++) {
-        option_div.removeChild(room_div[i]);
-      }
 
-      for (var j = 0; j < current_room.exits.length; j++) {
-        exit = current_room.exits[j];
-        exit_id = exit.replace(/\s+/g, '-');
-        var new_room_go = document.createElement("span");
-        var new_room_look = document.createElement("span");
-        var outter_div = document.createElement("div");
-        outter_div.className= "room";
-        new_room_go.className= "run";
-        new_room_go.id= "run-"+exit_id;
-        new_room_go.innerHTML = "Run towards the " + exit;
-        new_room_look.className = "look";
-        new_room_look.id = "look-"+exit_id;
-        new_room_look.innerHTML = " Look at the " + exit;
-        option_div.appendChild(outter_div);
-        outter_div.appendChild(new_room_go);
-        outter_div.appendChild(new_room_look);
-      }
-    });
     // Add more!
   // }
 });
+
+function setClickers() {
+  $(".look").click(function() {
+    alert(room_directory(this.getAttribute('id')).getDescription());
+  });
+
+  $(".run").click(function() {
+
+    var current_room = room_directory(this.getAttribute('id'));
+    $("h1").html("Starbuck is in the " + current_room.name.toLowerCase() + "!");
+    var option_div = $(".options")[0];
+    var room_div = $(".room");
+
+    for (var i = 0; i < room_div.length; i++) {
+
+      option_div.removeChild(room_div[i]);
+    }
+
+    for (var j = 0; j < current_room.exits.length; j++) {
+      exit = current_room.exits[j].toLowerCase();
+      exit_id = exit.replace(/\s+/g, '-');
+      var new_room_go = document.createElement("span");
+      var new_room_look = document.createElement("span");
+      var outter_div = document.createElement("div");
+      outter_div.className= "room";
+      new_room_go.className= "run";
+      new_room_go.id= "run-"+exit_id;
+      new_room_go.innerHTML = "Run towards the " + exit;
+      new_room_look.className = "look";
+      new_room_look.id = "look-"+exit_id;
+      new_room_look.innerHTML = " Look at the " + exit;
+      option_div.appendChild(outter_div);
+      outter_div.appendChild(new_room_go);
+      outter_div.appendChild(new_room_look);
+    }
+    setClickers();
+  });
+}
