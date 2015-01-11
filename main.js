@@ -98,14 +98,17 @@ $(document).ready(function(){
 
       for (var j = 0; j < current_room.exits.length; j++) {
         exit = current_room.exits[j];
+        exit_id = exit.replace(/\s+/g, '-');
         var new_room_go = document.createElement("span");
         var new_room_look = document.createElement("span");
         var outter_div = document.createElement("div");
         outter_div.className= "room";
         new_room_go.className= "run";
+        new_room_go.id= "run-"+exit_id;
         new_room_go.innerHTML = "Run towards the " + exit;
         new_room_look.className = "look";
-        new_room_look.innerHTML = "Look at the " + exit;
+        new_room_look.id = "look-"+exit_id;
+        new_room_look.innerHTML = " Look at the " + exit;
         option_div.appendChild(outter_div);
         outter_div.appendChild(new_room_go);
         outter_div.appendChild(new_room_look);
